@@ -1,0 +1,66 @@
+Luke Welna
+
+1) My lastPlayBot took in a parameters player(which is the current player[player1 or player2]) 
+and an array called playerList which stores the player1 object, player1's move, player2 object, and 
+player2's move respectively. lastPlayBot is called in main when one or both of the players equals lastPlayBot
+and playerList is updated under the same conditions.  The sudo logic for lastPlayBot is as follows:
+	if playerList = 0	// it is in its innitialized state
+		return randomBot
+	elseif the current player = player1
+		return player2's last move
+	elseif the current player = player2
+		return player1's last move
+		
+2) I assumed a lot of people would make a bot that would always win, so I made a bot that would always lose 
+(I'm not super creative) Yet, the implementation is probably very similar.  However, this only works if you 
+know the other players move before you make yours. Therefore, it only works if myBot is player2 (actually,
+now that I am thinking about it, I probably could have added some logic for myBot when I determine a winner
+and if myBot wins, then change my move to a winning one.... but I don't really have time to implement it now
+unfortunately, so for now, myBot is only always loses if it is player2).  Implementing my bot was pretty straight 
+forward.  At runtime It would store player1's move and pass it into the myBot method (again this only worked
+if player1 was not myBot, if it was, it would just return a random move).  I also had a beats method in each
+Element class that would return both moves that would make player2 lose (to change this to a bot that always
+won, all I would have to do is change the elements that beats() returned for each element).  Then In myBot the
+method I would flip a coin to return a random losing element.
+ 
+ 3)Python Is a strongly typed dynamic language. Which I think is a happy medium for a type system.  It is 
+ strongly typed in the sense that the interpreter keeps track of all the types of the variables and you aren't
+ allowed to add a string and a int for example where a weakly typed language would do background conversions
+ to make that addition possible.  Python is dynamic in the sense that the type of the variable or object is
+ determined at runtime and the same variable can be reset to a different type willy nilly.  A static language
+ is when the types of the variables are set in stone when they are declared at compile time, the types of
+ these variables can not change
+ Reference - https://wiki.python.org/moin/Why%20is%20Python%20a%20dynamic%20language%20and%20also%20a%20strongly%20typed%20language
+ 
+ 4)	Well, because I made the bots, I know exactly how they work.  The only Bots I am able to beat consistently
+are StupidBot, IterativeBot, LastPlayBot and myBot(obviously).  StupidBot just picks the same element each 
+time(it's stupid). IterativeBot is a little harder to beat if I didn't know how I implemented it, and in which 
+order the moves were placed in the moves array.  However, after a few games they would pick up on which move
+they will play next, and once you know the other players move, you can win.  LastPlayBot would be tricky as 
+well (again, since I know how I implemented it, I can beat it every time) but once they realise it picks the 
+last move you played, you can win every move after the first one.  myBot is beat because myBot always loses,
+no matter what you do.  The only bot I cant beat constantly is randomBot because, well, its random and I 
+can't predict what move it will play.
+ 
+ 5)This entirely depends on the type of player that you are trying to beat.  Are you trying to beat a bot or
+ a human? Humans can be beat no matter what.  I don't think there is a pure strategy for the game that is 
+ better than another but a mixed strategy that allows a player to choose a pure strategy dynamically.  Random 
+ moves is the best strategy in this situation but humans are inherently bad at random and tend to use patterns
+ whether they think they do or not.
+ 
+ 6)Python is great because it is so easy.  It has very little overhead, if you are able to keep track of your
+ variable types, the dynamic typing system is pretty great,  I didn't run into any problems with overwriting 
+ things if the variable was global (then things get weird).  Python is my favourite language when used as a
+ scripting language.
+ 
+ 7)Self.  self sucks, and how Python deals with objects sucks,  it's not at all intuitive like the rest of 
+ the language.  That being said, if I was using it a lot, I would get used to it. However, I will likely 
+ never use Python when I need to do something in an object oriented way (Java to the rescue).
+ 
+ 8)Overall, I enjoyed this lab, even though I didn't like having to use objects in python.  The lab was a 
+ cool idea
+ 
+ 9)20? I really have no idea, this is a super rough estimate, I started the bulk of it on my drive over 
+ spring break and finished it with no stress, so that's good.
+ 
+ 10)Yes, absolutely.  For quick projects, nothing object oriented.
