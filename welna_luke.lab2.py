@@ -16,9 +16,9 @@ class Rock(Element):        # Rock class
         self.winMove1 = 'rock'
         self.winMove2 = 'rock'
 
-    def beats(self):
-        self.winMove1 = moves[2]
-        self.winMove2 =  moves[3]
+    def beats(self):            #returns what rock beats
+        self.winMove1 = moves[2]        #scissors
+        self.winMove2 =  moves[3]       #lizzard
         return [self.winMove1,self.winMove2]
 
     def compareTo(self, Element):             # over written comareTo method for Rock
@@ -43,9 +43,9 @@ class Paper(Element):           #Paper class
         self.winMove1 = 'paper'
         self.winMove2 = 'paper'
 
-    def beats(self):
-        self.winMove1 = moves[0]
-        self.winMove2 =  moves[4]
+    def beats(self):    # returns what paper beats
+        self.winMove1 = moves[0]        # rock
+        self.winMove2 =  moves[4]       #spock
         return self.winMove1,self.winMove2
 
     def compareTo(self, Element):             # over written comareTo method for Paper
@@ -69,9 +69,10 @@ class Lizzard(Element):         # Lizzard class
         self.name = name
         self.winMove1 = 'lizzard'
         self.winMove2 = 'lizzard'
-    def beats(self):
-        self.winMove1 = moves[1]
-        self.winMove2 =  moves[4]
+
+    def beats(self):        #returns what Lizzard Beats
+        self.winMove1 = moves[1]        #paper
+        self.winMove2 =  moves[4]       #spock
         return self.winMove1,self.winMove2
 
     #dont think i need comments for the conditional statements, pretty straight forward
@@ -96,9 +97,9 @@ class Scissors(Element):            #Scissors class
         self.winMove1 = 'scissors'
         self.winMove2 = 'scissors'
 
-    def beats(self):
-        self.winMove1 = moves[1]
-        self.winMove2 =  moves[3]
+    def beats(self):        #returns what Scissors beats
+        self.winMove1 = moves[1]        #paper
+        self.winMove2 =  moves[3]       #lizzard
         return self.winMove1,self.winMove2
 
     #dont think i need comments for the conditional statements, pretty straight forward
@@ -123,9 +124,10 @@ class Spock(Element):                   #class Spock
         self.name = name
         self.winMove1 = 'spock'
         self.winMove2 = 'spock'
-    def beats(self):
-        self.winMove1 = moves[0]
-        self.winMove2 =  moves[2]
+
+    def beats(self):        #returns what Spock Beats
+        self.winMove1 = moves[0]        #rock
+        self.winMove2 =  moves[2]       #scissors
         return self.winMove1,self.winMove2
 
     def compareTo(self, Element):    #over written compareTo method for Spock
@@ -160,7 +162,7 @@ lizzard.beats()
 scissors.beats()
 spock.beats()
 
-class Player:
+class Player:       # Parent Player class
     def __init__(self, name):
         self._name = name
 
@@ -287,17 +289,17 @@ class main():
     while(1):
         print("""
 Please choose two players:
-   (1)  Human
-   (2)  StupidBot
-   (3)  RandomBot
-   (4)  IterativeBot
-   (5)  LastPlayBot
-   (6)  MyBot
+    (1)  Human
+    (2)  StupidBot
+    (3)  RandomBot
+    (4)  IterativeBot
+    (5)  LastPlayBot
+    (6)  MyBot
             """)
         userInput1 = input("Select Player 1:  ")                 #ask user for input for player 1
         userInput2 = input("Select Player 2:  ")
         lastPlay = [0,0,0,0]            #list initialization for lastPlayBot implementation
-        player1Move = 1;
+        player1Move = 1;        #innitialistion for player1Move
         print()
         if(checkInput(userInput1) and checkInput(userInput2)):                  # if the user enters valid inputs
             player1 = getPlayer(int(userInput1))            # cast inputs to an int
@@ -307,51 +309,50 @@ Please choose two players:
             player2Counter = 0
             for i in range(0,5):                # Play 5 rounds
                 print("Round {}:".format(i+1))
-                if((player1 == lastPlayBot and player2 == lastPlayBot)):
-                    move1 = player1.play(player1,lastPlay)
-                    move2 = player2.play(player2,lastPlay)
-                    lastPlay = [player1,move1,player2,move2]
-                elif(player1 == lastPlayBot and player2 == myBot):
-                    move1 = player1.play(player1,lastPlay)                  #move1 = lastPlayBot
-                    move2 = player2.play(move1,2)
-                elif(player1 == myBot and player2 == lastPlayBot):
+                if((player1 == lastPlayBot and player2 == lastPlayBot)):            #if both players are lastPlayBot (there is a bug here, it should switch between both players moves but it doesnt)
+                    move1 = player1.play(player1,lastPlay)      # move1 = player2's last move
+                    move2 = player2.play(player2,lastPlay)      # move2 - player1's last move
+                    lastPlay = [player1,move1,player2,move2]    #update lastPlay with the players and their last moves
+                elif(player1 == lastPlayBot and player2 == myBot):              #if player1 = lastPlayBot and plyaer2 = myBot
+                    move1 = player1.play(player1,lastPlay)                  #move1 = lastPlayBot (will just return a random move)
+                    move2 = player2.play(move1,2)                               #move2 = the move to lose against lastPlayBot's Move
+                elif(player1 == myBot and player2 == lastPlayBot):          #oposite condiitions to the one directly above
                     move1 = player1.play(None,1)
                     move2 = player2.play(player2,lastPlay)
-                elif(player1 == lastPlayBot ):
-                    move1 = player1.play(player1,lastPlay)
+                elif(player1 == lastPlayBot ):                          #if player1 = last playBot
+                    move1 = player1.play(player1,lastPlay)      #will just return a random move since player1 is last playBot
                     move2 = player2.play()
-                    lastPlay = [player1,move1,player2,move2]
+                    lastPlay = [player1,move1,player2,move2]        #update both players and their move is LastPlay
                 elif(player2 == lastPlayBot ):
                     move1 = player1.play()
-                    move2 = player2.play(player2,lastPlay)
-                    lastPlay = [player1,move1,player2,move2]
-                elif(player1 == myBot and player2 == myBot):
+                    move2 = player2.play(player2,lastPlay)      #will play player1's last move
+                    lastPlay = [player1,move1,player2,move2]        #update lastPlay with both players and their move
+                elif(player1 == myBot and player2 == myBot):            #if both players are my bot, player2 will always lose
                     move1 = player1.play(player1Move,1)
                     move2 = player2.play(move1,2)
-                elif(player1 == myBot):
+                elif(player1 == myBot):         #if player 1 = myBot, will just return a random move
                     move1 = player1.play(None,1)
                     move2 = player2.play()
-                elif(player2 == myBot):
+                elif(player2 == myBot):      # if player2 = myBot, player2 will always lose.
                     move1 = player1.play()
                     move2 = player2.play(move1,2)
-                    print('move2 in main after myBot call =', move2)
                 else:
                     move1 = player1.play()          # move1 is player1's move
                     move2 = player2.play()          #  move2 is player2'c move
-                print("player 1 chose", move1.name)
-                print("player 2 chose", move2.name)
+                print("   player 1 chose", move1.name)
+                print("   player 2 chose", move2.name)
                 result = move1.compareTo(move2)             # comparing player1's move to player2's move and sets it to result
-                print(result[0])            # the first argument returned from the compareTo fuction
+                print("  ",result[0])            # the first argument returned from the compareTo fuction
                 if(result[1] == 'Win'):         # conditional statements checking if Win, Tie, or Lose
-                    print('Player 1 won the round\n')
+                    print('   Player 1 won the round\n')
                     player1Counter = player1Counter + 1   # if player wins, incement player1Counter
                 elif(result[1] == 'Tie'):
-                    print("Round was a tie\n")
+                    print("   Round was a tie\n")
                 elif(result[1] == 'Lose'):
-                    print("Player 2 won the round\n")
+                    print("   Player 2 won the round\n")
                     player2Counter = player2Counter + 1# if player2 wins, incement player2Counter
                 else:
-                    print("Unhandled condition getting result of round\n")
+                    print("   Unhandled condition getting result of round\n")
             print("The score is", player1Counter, "to", player2Counter)
             if(player1Counter > player2Counter):            #conditional statement for getting the winner.
                 print("Player 1 wins the game\n")
